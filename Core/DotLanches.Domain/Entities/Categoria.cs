@@ -2,8 +2,10 @@
 
 namespace DotLanches.Domain.Entities;
 
-public class Categoria
+public enum ECategoria
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    lanche = 10,
+    acompanhamento = 20,
+    bebida = 30,
+    sobremesa = 40,
 }

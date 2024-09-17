@@ -8,7 +8,7 @@ namespace DotLanches.Domain.Interfaces.Repositories
 
     public Task<Cliente> Edit(Cliente cliente);
 
-    public Task<Cliente> Delete(int idCliente);
+    public Task<Cliente> Delete(string cpf);
 
     public Task<IEnumerable<Cliente>> GetAll();
 

@@ -5,25 +5,19 @@ namespace DotLanches.Domain.Entities;
 
 public class Combo
 {
-    public int Id { get; set; }
-    public int PedidoId { get; set; }
+    public Guid Id { get; set; }
     public Produto? Lanche { get; set; }
     public Produto? Acompanhamento { get; set; }
     public Produto? Bebida { get; set; }
     public Produto? Sobremesa { get; set; }
-    public decimal Price { get; set; }
 
     private Combo() { }
 
-    public Combo(int id,
-                 int pedidoId,
-                 Produto lanche,
+    public Combo(Produto lanche,
                  Produto acompanhamento,
                  Produto bebida,
                  Produto sobremesa)
     {
-        Id = id;
-        PedidoId = pedidoId;
         Lanche = lanche;
         Acompanhamento = acompanhamento;
         Bebida = bebida;
@@ -34,22 +28,26 @@ public class Combo
 
     private void ValidateEntity()
     {
-        if (Lanche?.Id == 0 && Acompanhamento?.Id == 0 && Bebida?.Id == 0 && Sobremesa?.Id == 0)
+        if (Lanche?.Id == Guid.Empty && Acompanhamento?.Id == Guid.Empty && Bebida?.Id == Guid.Empty && Sobremesa?.Id == Guid.Empty)
             throw new DomainValidationException(nameof(Produto));
     }
 
-    public void CalculatePrice()
+    public decimal CalculatePrice()
     {
-        if (Lanche is not null)
-            Price += Lanche.Price;
-        if (Acompanhamento is not null)
-            Price += Acompanhamento.Price;
-        if (Bebida is not null)
-            Price += Bebida.Price;
-        if (Sobremesa is not null)
-            Price += Sobremesa.Price;
+        decimal price = 0;
 
-        if (Price <= 0)
-            throw new DomainValidationException(nameof(Price));
+        if (Lanche is not null)
+            price += Lanche.Price;
+        if (Acompanhamento is not null)
+            price += Acompanhamento.Price;
+        if (Bebida is not null)
+            price += Bebida.Price;
+        if (Sobremesa is not null)
+            price += Sobremesa.Price;
+
+        if (price <= 0)
+            throw new DomainValidationException(nameof(price));
+
+        return price; 
     }
 }

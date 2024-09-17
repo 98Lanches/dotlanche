@@ -7,16 +7,14 @@ namespace DotLanches.Domain.Entities
 {
     public class Cliente
     {
-        public int Id { get; private set; }
         public string? Name { get; set; }
         public Cpf? Cpf { get; set; }
         public string? Email { get; set; }
 
         private Cliente() {}
 
-        public Cliente(int id, string name, string cpf, string email)
+        public Cliente(string name, string cpf, string email)
         {
-            Id = id;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Cpf =  new Cpf(cpf);
             Email = email ?? throw new ArgumentNullException(nameof(email));

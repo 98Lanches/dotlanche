@@ -19,7 +19,7 @@ namespace DotLanches.Application.UseCases
 
         public static async Task<Cliente> EditExistingCliente(Cliente cliente, IClienteGateway gateway) => await gateway.Edit(cliente);
 
-        public static async Task<Cliente> RemoveCliente(int idCliente, IClienteGateway gateway) => await gateway.Delete(idCliente);
+        public static async Task<Cliente> RemoveCliente(string cpf, IClienteGateway gateway) => await gateway.Delete(cpf);
 
         public static async Task<IEnumerable<Cliente>> ShowAllClientes(IClienteGateway gateway) => await gateway.GetAll();
 

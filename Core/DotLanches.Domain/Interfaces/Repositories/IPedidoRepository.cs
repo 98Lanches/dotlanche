@@ -12,7 +12,7 @@ namespace DotLanches.Domain.Interfaces.Repositories
 
         Task<IEnumerable<Pedido>> GetPedidosQueue();
 
-        Task<Pedido?> GetById(int id);
+        Task<Pedido?> GetById(Guid id);
 
         Task<Pedido> UpdateStatus(Pedido pedido);
     }

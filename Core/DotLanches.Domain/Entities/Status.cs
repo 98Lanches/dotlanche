@@ -2,22 +2,13 @@
 
 namespace DotLanches.Domain.Entities
 {
-    public record Status
+    public enum EStatus
     {
-        private Status(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-
-        public static Status Confirmado() => new(1, "Confirmado");
-        public static Status Recebido() => new(2, "Recebido");
-        public static Status EmPreparacao() => new(3, "EmPreparacao");
-        public static Status Pronto() => new(4, "Pronto");
-        public static Status Finalizado() => new(5, "Finalizado");
-        public static Status Cancelado() => new(6, "Cancelado");
+        cancelado = 0,
+        confirmado = 10,
+        recebido = 20,
+        emPreparo = 30,
+        pronto = 40,
+        finalizado = 50,
     }
 }

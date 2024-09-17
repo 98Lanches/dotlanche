@@ -9,10 +9,10 @@ namespace DotLanches.Application.UseCases
         
         public static async Task<Produto> EditExistingProduto(Produto produto, IProdutoGateway gateway) => await gateway.Edit(produto);
 
-        public static async Task<Produto> RemoveProduto(int idProduto, IProdutoGateway gateway) => await gateway.Delete(idProduto);
+        public static async Task<Produto> RemoveProduto(Guid idProduto, IProdutoGateway gateway) => await gateway.Delete(idProduto);
 
-        public static async Task<IEnumerable<Produto>> ShowAllProdutosForGivenCategory(int idCategoria, IProdutoGateway gateway) => await gateway.GetByCategoria(idCategoria);
+        public static async Task<IEnumerable<Produto>> ShowAllProdutosForGivenCategory(ECategoria categoria, IProdutoGateway gateway) => await gateway.GetByCategoria(categoria);
 
-        public static async Task<Produto> ShowSelectedProduto(int idProduto, IProdutoGateway gateway) => await gateway.GetById(idProduto);
+        public static async Task<Produto> ShowSelectedProduto(Guid idProduto, IProdutoGateway gateway) => await gateway.GetById(idProduto);
     }
 }
