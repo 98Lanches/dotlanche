@@ -2,6 +2,6 @@
 {
     public class PagamentoRequestDto
     {
-        public int IdPedido { get; set; }
+        public Guid IdPedido { get; set; }
     }
 }

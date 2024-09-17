@@ -45,7 +45,7 @@ namespace DotLanches.Api.Controllers
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update([FromRoute] int idProduto, [FromBody] ProdutoDto produtoDto)
+        public async Task<IActionResult> Update([FromRoute] Guid idProduto, [FromBody] ProdutoDto produtoDto)
         {
             var controller = new AdapterProdutoController(_produtoRepository);
             var produto = await controller.EditProduto(produtoDto.ToDomainModel(idProduto));
@@ -60,7 +60,7 @@ namespace DotLanches.Api.Controllers
         [HttpDelete("{idProduto}")]
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromRoute] int idProduto)
+        public async Task<IActionResult> Delete([FromRoute] Guid idProduto)
         {
             var controller = new AdapterProdutoController(_produtoRepository);
             var produto = await controller.DeleteProduto(idProduto);
@@ -70,14 +70,14 @@ namespace DotLanches.Api.Controllers
         /// <summary>
         /// Busca produtos pertencentes a uma categoria
         /// </summary>
-        /// <param name="idCategoria">ID da categoria a ser buscada</param>
+        /// <param name="categoria">Nome da categoria a ser buscada</param>
         /// <returns>Lista de produtos que pertencem a categoria informada</returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Produto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByCategoria([Required][FromQuery] int idCategoria)
+        public async Task<IActionResult> GetByCategoria([Required][FromQuery] ECategoria categoria)
         {
             var controller = new AdapterProdutoController(_produtoRepository);
-            var produtoList = await controller.GetByCategoria(idCategoria);
+            var produtoList = await controller.GetByCategoria(categoria);
             return Ok(produtoList);
         }
 
@@ -88,7 +88,7 @@ namespace DotLanches.Api.Controllers
         /// <returns>Lista de produtos pelo Id</returns>
         [HttpGet("{idProduto}")]
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetById([Required][FromRoute] int idProduto)
+        public async Task<IActionResult> GetById([Required][FromRoute] Guid idProduto)
         {
             var controller = new AdapterProdutoController(_produtoRepository);
             var produtoList = await controller.GetById(idProduto);

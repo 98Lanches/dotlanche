@@ -1,5 +1,5 @@
-﻿using DotLanches.Domain.Exceptions;
-using DotLanches.Infra.Exceptions;
+﻿using DotLanches.DataMongo.Exceptions;
+using DotLanches.Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

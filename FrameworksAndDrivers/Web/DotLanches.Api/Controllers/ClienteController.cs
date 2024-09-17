@@ -39,32 +39,30 @@ namespace DotLanches.Api.Controllers
         /// <summary>
         /// Atualiza um cliente existente
         /// </summary>
-        /// <param name="idCliente">ID do cliente a ser atualizado</param>
         /// <param name="clienteDto">Novos dados do cliente</param>
         /// <returns>Cliente atualizado</returns>
         [HttpPut("{idCliente}")]
         [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(int idCliente, [FromBody] ClienteDto clienteDto)
+        public async Task<IActionResult> Update([FromBody] ClienteDto clienteDto)
         {
             var controller = new AdapterClienteController(_clienteRepository);
-            var cliente = await controller.EditCliente(clienteDto.ToDomainModel(idCliente));
+            var cliente = await controller.EditCliente(clienteDto.ToDomainModel());
             return Ok(cliente);
         }
         
         /// <summary>
         /// Remove um cliente
         /// </summary>
-        /// <param name="idCliente">ID do cliente a ser removido</param>
         /// <returns>Cliente removido</returns>
         [HttpDelete("{idCliente}")]
         [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromRoute] int idCliente)
+        public async Task<IActionResult> Delete([FromRoute] string cpf)
         {
             var controller = new AdapterClienteController(_clienteRepository);
-            var cliente = await controller.DeleteCliente(idCliente);
+            var cliente = await controller.DeleteCliente(cpf);
             return Ok(cliente);
         }
         

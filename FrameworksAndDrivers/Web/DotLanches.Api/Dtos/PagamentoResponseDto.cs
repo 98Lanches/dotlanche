@@ -1,8 +1,8 @@
 ﻿namespace DotLanches.Api.Dtos;
 
-public class ProcessPagamentoRequestDto
+public class PagamentoResponseDto
 {
-    public int IdPedido { get; set; }
+    public Guid IdPedido { get; set; }
 
     public bool IsAccepted { get; set; }
 }
