@@ -15,12 +15,12 @@ namespace DotLanches.Gateways
 
         public async Task Add(Produto produto) => await _produtoRepository.Add(produto);
 
-        public async Task<Produto> Delete(int idProduto) => await _produtoRepository.Delete(idProduto);
+        public async Task<Produto> Delete(Guid idProduto) => await _produtoRepository.Delete(idProduto);
 
         public async Task<Produto> Edit(Produto produto) => await _produtoRepository.Edit(produto);
 
-        public async Task<IEnumerable<Produto>> GetByCategoria(int idCategoria) => await _produtoRepository.GetByCategoria(idCategoria);
+        public async Task<IEnumerable<Produto>> GetByCategoria(ECategoria categoria) => await _produtoRepository.GetByCategoria(categoria);
 
-        public async Task<Produto> GetById(int idProduto) => await _produtoRepository.GetById(idProduto);
+        public async Task<Produto> GetById(Guid idProduto) => await _produtoRepository.GetById(idProduto);
     }
 }

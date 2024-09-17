@@ -15,7 +15,7 @@ namespace DotLanches.Gateways
 
         public async Task Add(Cliente cliente) => await _clienteRepository.Add(cliente);
 
-        public async Task<Cliente> Delete(int idCliente) => await _clienteRepository.Delete(idCliente);
+        public async Task<Cliente> Delete(string cpf) => await _clienteRepository.Delete(cpf);
 
         public async Task<Cliente> Edit(Cliente cliente) => await _clienteRepository.Edit(cliente);
 

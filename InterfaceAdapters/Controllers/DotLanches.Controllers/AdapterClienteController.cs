@@ -28,10 +28,10 @@ namespace DotLanches.Controllers
             return cl;
         }
 
-        public async Task<Cliente> DeleteCliente(int idCliente)
+        public async Task<Cliente> DeleteCliente(string cpf)
         {
             var clienteGateway = new ClienteGateway(_clienteRepository);
-            var cl = await ClienteUseCases.RemoveCliente(idCliente, clienteGateway);
+            var cl = await ClienteUseCases.RemoveCliente(cpf, clienteGateway);
             return cl;
         }
 

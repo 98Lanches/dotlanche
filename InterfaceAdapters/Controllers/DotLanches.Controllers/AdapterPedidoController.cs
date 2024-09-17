@@ -16,7 +16,7 @@ namespace DotLanches.Controllers
             _pedidoRepository = pedidoRepository;
         }
 
-        public async Task<int> Create(Pedido pedido)
+        public async Task<Guid> Create(Pedido pedido)
         {
             var produtoGateway = new ProdutoGateway(_produtoRepository);
             var pedidoGateway = new PedidoGateway(_pedidoRepository);
@@ -32,7 +32,7 @@ namespace DotLanches.Controllers
             return pedidoList;
         }
 
-        public async Task<Pedido> UpdateStatus(int idPedido, Status status)
+        public async Task<Pedido> UpdateStatus(Guid idPedido, EStatus status)
         {
             var pedidoGateway = new PedidoGateway(_pedidoRepository);
             var updatedPedido = await PedidoUseCases.UpdateStatusOfSelectedPedido(idPedido, status, pedidoGateway);

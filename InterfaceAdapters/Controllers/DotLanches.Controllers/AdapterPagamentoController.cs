@@ -20,7 +20,7 @@ namespace DotLanches.Controllers
             _checkout = checkout;
         }
 
-        public async Task<string> RequestPagamentoQRCode(int idPedido)
+        public async Task<string> RequestPagamentoQRCode(Guid idPedido)
         {
             var pedidoGateway = new PedidoGateway(_pedidoRepository);
             var pagamentoGateway = new PagamentoGateway(_pagamentoRepository);
@@ -29,7 +29,7 @@ namespace DotLanches.Controllers
             return qrCode;
         }
 
-        public async Task<PagamentoViewModel?> ProcessPagamento(int idPedido, bool isAccepted)
+        public async Task<PagamentoViewModel?> ProcessPagamento(Guid idPedido, bool isAccepted)
         {
             var pedidoGateway = new PedidoGateway(_pedidoRepository);
             var pagamentoGateway = new PagamentoGateway(_pagamentoRepository);
@@ -46,7 +46,7 @@ namespace DotLanches.Controllers
             }
         }
 
-        public async Task<PagamentoViewModel?> GetByIdPedido(int idPedido)
+        public async Task<PagamentoViewModel?> GetByIdPedido(Guid idPedido)
         {
             var pagamentoGateway = new PagamentoGateway(_pagamentoRepository);
             var pagamento = await pagamentoGateway.GetByIdPedido(idPedido);
