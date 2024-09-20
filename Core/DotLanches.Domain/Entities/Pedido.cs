@@ -25,7 +25,7 @@ public class Pedido
         CreatedAt = createdAt;
         ClienteCpf = clienteCpf;
         Combos = combos;
-        Status = EStatus.confirmado;
+        Status = EStatus.Confirmado;
         Pagamento = new Pagamento();
 
         ValidateEntity();
@@ -47,14 +47,14 @@ public class Pedido
 
     public void ReceivePagamento(QueueKey queueKey)
     {
-        this.Status = EStatus.recebido;
+        this.Status = EStatus.Recebido;
         this.QueueKey = queueKey.Value;
         this.AddedToQueueAt = queueKey.CreationDate;
     }
 
     public void Cancel()
     {
-        this.Status = EStatus.cancelado;
+        this.Status = EStatus.Cancelado;
     }
 
 }

@@ -36,7 +36,7 @@ namespace DotLanches.DataMongo.Repositories
 
         public async Task<IEnumerable<Pedido>> GetPedidosQueue()
         {
-            var queueStatusIds = new[] { EStatus.pronto, EStatus.emPreparo, EStatus.recebido };
+            var queueStatusIds = new[] { EStatus.Pronto, EStatus.EmPreparo, EStatus.Recebido };
 
             var filter = Builders<Pedido>.Filter.In(p => p.Status, queueStatusIds);
             var sort = Builders<Pedido>.Sort.Descending(p => p.Status).Ascending(p => p.CreatedAt);

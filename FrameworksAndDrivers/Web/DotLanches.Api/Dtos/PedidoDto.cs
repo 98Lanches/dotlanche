@@ -7,6 +7,7 @@ namespace DotLanches.Api.Dtos
     public class PedidoDto
     {
         public Cpf? ClienteCpf { get; set; }
+
         [Required]
         public IEnumerable<ComboDto> Combos { get; set; }
     }

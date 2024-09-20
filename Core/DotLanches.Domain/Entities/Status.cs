@@ -4,11 +4,11 @@ namespace DotLanches.Domain.Entities
 {
     public enum EStatus
     {
-        cancelado = 0,
-        confirmado = 10,
-        recebido = 20,
-        emPreparo = 30,
-        pronto = 40,
-        finalizado = 50,
+        Cancelado, 
+        Confirmado,
+        Recebido,
+        EmPreparo,
+        Pronto,
+        Finalizado,
     }
 }
