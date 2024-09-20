@@ -13,5 +13,7 @@ namespace DotLanches.Domain.Interfaces.Gateways
         public Task<IEnumerable<Produto>> GetByCategoria(ECategoria categoria);
 
         public Task<Produto> GetById(Guid idProduto);
+
+        public Task<Produto?> GetByName(string name);
     }
 }
