@@ -11,13 +11,12 @@ public class Combo
     public Produto? Bebida { get; set; }
     public Produto? Sobremesa { get; set; }
 
-    private Combo() { }
-
     public Combo(Produto lanche,
                  Produto acompanhamento,
                  Produto bebida,
                  Produto sobremesa)
     {
+        Id = Guid.NewGuid();
         Lanche = lanche;
         Acompanhamento = acompanhamento;
         Bebida = bebida;
