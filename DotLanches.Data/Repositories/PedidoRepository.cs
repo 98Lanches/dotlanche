@@ -8,29 +8,14 @@ namespace DotLanches.DataMongo.Repositories
     internal class PedidoRepository : IPedidoRepository
     {
         private readonly IMongoCollection<Pedido> _pedidosCollection;
-        private readonly IMongoCollection<Cliente> _clientesCollection;
 
         public PedidoRepository(IMongoDatabase database)
         {
             _pedidosCollection = database.GetCollection<Pedido>("Pedidos");
-            _clientesCollection = database.GetCollection<Cliente>("Clientes");
         }
 
         public async Task Add(Pedido pedido)
         {
-            // Ensure that Cliente exists
-            if (pedido.ClienteCpf is not null)
-            {
-                var cliente = await _clientesCollection
-                    .Find(c => c.Cpf.Number == pedido.ClienteCpf)
-                    .FirstOrDefaultAsync();
-
-                if (cliente == null)
-                    throw new EntityNotFoundException("Cliente not found!");
-
-                pedido.ClienteCpf = cliente.Cpf.Number;
-            }
-
             await _pedidosCollection.InsertOneAsync(pedido);
         }
 
