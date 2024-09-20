@@ -10,16 +10,12 @@ namespace DotLanches.DataMongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        //const string conn = "mongodb://localhost:27017/dotlanches";
-        const string conn = "mongodb+srv://dotlanche:dotlanche@98lanches.ojp4b.mongodb.net/?retryWrites=true&w=majority&appName=98Lanches";
+        private const string DATABASE_NAME = "dotlanche";
 
         public static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            // Create a singleton instance of the MongoClient
-            services.AddSingleton<MongoClient>(provider => new MongoClient(conn));
-
-            // Create a singleton instance of the IMongoDatabase
-            services.AddSingleton<IMongoDatabase>(provider => provider.GetRequiredService<MongoClient>().GetDatabase("dotlanche"));
+            services.AddSingleton(provider => new MongoClient(configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton(provider => provider.GetRequiredService<MongoClient>().GetDatabase(DATABASE_NAME));
 
             // Create a singleton instance of the IMongoCollection<Produto>
             //services.AddSingleton<IMongoCollection<Produto>>(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<Produto>("ProdutoTeste"));
