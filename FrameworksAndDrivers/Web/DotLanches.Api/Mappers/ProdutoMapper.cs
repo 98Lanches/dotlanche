@@ -11,7 +11,7 @@ namespace DotLanches.Api.Mappers
                                           produtoDto.Name,
                                           produtoDto.Description,
                                           produtoDto.Price,
-                                          produtoDto.IdCategoria);
+                                          produtoDto.Categoria);
 
             return domainModel;
         }

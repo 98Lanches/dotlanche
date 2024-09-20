@@ -4,8 +4,8 @@ namespace DotLanches.Domain.Entities;
 
 public enum ECategoria
 {
-    lanche = 10,
-    acompanhamento = 20,
-    bebida = 30,
-    sobremesa = 40,
+    Lanche,
+    Acompanhamento,
+    Bebida,
+    Sobremesa,
 }
