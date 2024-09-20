@@ -14,10 +14,10 @@ public class AdapterProdutoController
         _produtoRepository = produtoRepository;
     }
 
-    public async Task AddProduto(Produto produto)
+    public async Task<Guid> AddProduto(Produto produto)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
-        await ProdutoUseCases.RegisterNewProduto(produto, gateway);
+        return await ProdutoUseCases.RegisterNewProduto(produto, gateway);
     }
 
     public async Task<Produto> EditProduto(Produto produto)

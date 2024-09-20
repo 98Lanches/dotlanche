@@ -4,7 +4,7 @@ namespace DotLanches.Domain.Interfaces.Gateways
 {
     public interface IProdutoGateway
     {
-        public Task Add(Produto produto);
+        public Task<Guid> Add(Produto produto);
 
         public Task<Produto> Edit(Produto produto);
 

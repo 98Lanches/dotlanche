@@ -14,9 +14,10 @@ namespace DotLanches.DataMongo.Repositories
             _produtosCollection = database.GetCollection<Produto>("Produtos");
         }
 
-        public async Task Add(Produto produto)
+        public async Task<Guid> Add(Produto produto)
         {
             await _produtosCollection.InsertOneAsync(produto);
+            return produto.Id;
         }
 
         public async Task<Produto> Edit(Produto produto)

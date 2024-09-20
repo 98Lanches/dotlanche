@@ -4,7 +4,7 @@ namespace DotLanches.Domain.Interfaces.Repositories
 {
     public interface IProdutoRepository
     {
-        public Task Add(Produto produto);
+        public Task<Guid> Add(Produto produto);
 
         public Task<Produto> Edit(Produto produto);
 

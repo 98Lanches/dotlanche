@@ -31,8 +31,8 @@ namespace DotLanches.Api.Controllers
         public async Task<IActionResult> Create([FromBody] ProdutoDto produtoDto)
         {
             var controller = new AdapterProdutoController(_produtoRepository);
-            await controller.AddProduto(produtoDto.ToDomainModel());
-            return StatusCode(StatusCodes.Status201Created);
+            var newProductIdentifier = await controller.AddProduto(produtoDto.ToDomainModel());
+            return StatusCode(StatusCodes.Status201Created, new { Id = newProductIdentifier });
         }
 
         /// <summary>

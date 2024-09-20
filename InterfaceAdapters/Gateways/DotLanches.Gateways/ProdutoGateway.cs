@@ -13,7 +13,7 @@ namespace DotLanches.Gateways
             _produtoRepository = produtoRepository;
         }
 
-        public async Task Add(Produto produto) => await _produtoRepository.Add(produto);
+        public async Task<Guid> Add(Produto produto) => await _produtoRepository.Add(produto);
 
         public async Task<Produto> Delete(Guid idProduto) => await _produtoRepository.Delete(idProduto);
 
