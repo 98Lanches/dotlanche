@@ -45,12 +45,7 @@ namespace DotLanches.Api.Extensions
 
         private static IServiceCollection ConfigureHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new Exception("No database connection string found!");
-
-            services.AddHealthChecks()
-                .AddNpgSql(connectionString);
-
+            services.AddHealthChecks();
             return services;
         }
     }
