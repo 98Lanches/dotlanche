@@ -63,10 +63,10 @@ namespace DotLanches.Api.Controllers
         [ProducesResponseType(typeof(Pedido), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateStatus([FromRoute] int idPedido, [Required][FromQuery] StatusDto statusDto)
+        public async Task<IActionResult> UpdateStatus([FromRoute] Guid idPedido, [Required][FromQuery] StatusDto statusDto)
         {
             var adapterPedido = new AdapterPedidoController(_produtoRepository, _pedidoRepository);
-            var updatedPedido = await adapterPedido.UpdateStatus(idPedido, statusDto.ToDomainModel());
+            var updatedPedido = await adapterPedido.UpdateStatus(idPedido, statusDto.Status);
             return Ok(updatedPedido);
         }
     }

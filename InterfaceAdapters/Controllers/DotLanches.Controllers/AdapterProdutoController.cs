@@ -2,7 +2,6 @@
 using DotLanches.Domain.Entities;
 using DotLanches.Domain.Interfaces.Repositories;
 using DotLanches.Gateways;
-using System.Net.Http.Headers;
 
 namespace DotLanches.Controllers;
 
@@ -15,10 +14,10 @@ public class AdapterProdutoController
         _produtoRepository = produtoRepository;
     }
 
-    public async Task AddProduto(Produto produto)
+    public async Task<Guid> AddProduto(Produto produto)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
-        await ProdutoUseCases.RegisterNewProduto(produto, gateway);
+        return await ProdutoUseCases.RegisterNewProduto(produto, gateway);
     }
 
     public async Task<Produto> EditProduto(Produto produto)
@@ -28,21 +27,21 @@ public class AdapterProdutoController
         return prod;
     }
 
-    public async Task<Produto> DeleteProduto(int idProduto)
+    public async Task<Produto> DeleteProduto(Guid idProduto)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
         var prod = await ProdutoUseCases.RemoveProduto(idProduto, gateway);
         return prod;
     }
 
-    public async Task<IEnumerable<Produto>> GetByCategoria(int categoriaId)
+    public async Task<IEnumerable<Produto>> GetByCategoria(ECategoria categoria)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
-        var produtos = await ProdutoUseCases.ShowAllProdutosForGivenCategory(categoriaId, gateway);
+        var produtos = await ProdutoUseCases.ShowAllProdutosForGivenCategory(categoria, gateway);
         return produtos;
     }
 
-    public async Task<Produto> GetById(int idProduto)
+    public async Task<Produto?> GetById(Guid idProduto)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
         var produto = await ProdutoUseCases.ShowSelectedProduto(idProduto, gateway);

@@ -4,14 +4,16 @@ namespace DotLanches.Domain.Interfaces.Gateways
 {
     public interface IProdutoGateway
     {
-        public Task Add(Produto produto);
+        public Task<Guid> Add(Produto produto);
 
         public Task<Produto> Edit(Produto produto);
 
-        public Task<Produto> Delete(int idProduto);
+        public Task<Produto> Delete(Guid idProduto);
 
-        public Task<IEnumerable<Produto>> GetByCategoria(int idCategoria);
+        public Task<IEnumerable<Produto>> GetByCategoria(ECategoria categoria);
 
-        public Task<Produto> GetById(int idProduto);
+        public Task<Produto?> GetById(Guid idProduto);
+
+        public Task<Produto?> GetByName(string name);
     }
 }

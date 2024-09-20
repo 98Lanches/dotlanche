@@ -1,79 +1,11 @@
 {
 	"info": {
-		"_postman_id": "8f519dfb-b552-46b2-99e9-753498531261",
+		"_postman_id": "cc592ec1-6412-4be3-b6ff-68958dcd8f88",
 		"name": "DotLanche",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "4099276"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2079822"
 	},
 	"item": [
-		{
-			"name": "Cliente",
-			"item": [
-				{
-					"name": "Get  All Clientes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{API_URL}}/Cliente"
-					},
-					"response": []
-				},
-				{
-					"name": "Create Cliente",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"user example\", // Must be in string\n  \"cpf\": \"404.347.120-35\", // Must be in string and valid CPF\n  \"email\": \"user@example.com\" // Must be in string and valid e-mail\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{API_URL}}/Cliente"
-					},
-					"response": []
-				},
-				{
-					"name": "Update Cliente by Id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"user example 2\", // Must be in string\n  \"cpf\": \"404.347.120-35\", // Must be in string and valid CPF\n  \"email\": \"user@example.com\" // Must be in string and valid e-mail\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{API_URL}}/Cliente/1"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Cliente by Id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": "{{API_URL}}/Cliente/1"
-					},
-					"response": []
-				},
-				{
-					"name": "Search Cliente by CPF",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{API_URL}}/Cliente/404.347.120-35"
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "Pagamento",
 			"item": [
@@ -84,14 +16,23 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idPedido\": 1\n}",
+							"raw": "{\n    \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{API_URL}}/Pagamento/QrCode"
+						"url": {
+							"raw": "{{API_URL}}/Pagamento/QrCode",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Pagamento",
+								"QrCode"
+							]
+						}
 					},
 					"response": []
 				},
@@ -102,14 +43,23 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idPedido\": 1,\n  \"isAccepted\": true\n}",
+							"raw": "{\n  \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\",\n  \"isAccepted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{API_URL}}/Pagamento/Confirmar"
+						"url": {
+							"raw": "{{API_URL}}/Pagamento/Confirmar",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Pagamento",
+								"Confirmar"
+							]
+						}
 					},
 					"response": []
 				},
@@ -148,14 +98,22 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"clienteCpf\": {\n    \"number\": \"404.347.120-35\"\n  },\n  \"combos\": [\n    {\n      \"lancheId\": 1,\n      \"acompanhamentoId\": 3,\n      \"bebidaId\": 4,\n      \"sobremesaId\": 5\n    }\n  ]\n}",
+							"raw": "{\n  \"clienteCpf\": {\n    \"number\": \"404.347.120-35\"\n  },\n  \"combos\": [\n    {\n      \"lancheId\": \"d69e452b-378b-4402-8aed-d76e75fe2302\",\n      \"bebidaId\": \"0dd22751-2916-45ca-959d-a2273f2efbf0\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{API_URL}}/Pedido"
+						"url": {
+							"raw": "{{API_URL}}/Pedido",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Pedido"
+							]
+						}
 					},
 					"response": []
 				},
@@ -164,7 +122,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{API_URL}}/Pedido/queue"
+						"url": {
+							"raw": "{{API_URL}}/Pedido/queue",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Pedido",
+								"queue"
+							]
+						}
 					},
 					"response": []
 				},
@@ -204,23 +171,279 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Batata Frita\", // Must be a string\n  \"categoriaId\": 1, // Must be a number\n  \"description\": \"Batata deliciosamente frita\", // Must be a string\n  \"price\": 3.45 // Must be a number\n}",
+							"raw": "{\n  \"name\": \"teste\",\n  \"categoria\": \"lanche\",\n  \"description\": \"hamburger de carne\",\n  \"price\": 21.99\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{API_URL}}/Produto"
+						"url": {
+							"raw": "{{API_URL}}/Produto",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Produto"
+							]
+						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "X-Burguer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"X-Burger\",\n  \"categoria\": \"lanche\",\n  \"description\": \"Delicioso Hambúrguer com queijo\",\n  \"price\": 21.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Hot Dog",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Hot Dog\",\n  \"categoria\": \"lanche\",\n  \"description\": \"Hot Dog saboroso completo\",\n  \"price\": 20.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Batata Frita",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Batata Frita\",\n  \"categoria\": \"acompanhamento\",\n  \"description\": \"Batatas fritas deliciosas e crocantes\",\n  \"price\": 10.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Onion Rings",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Onion Rings\",\n  \"categoria\": \"acompanhamento\",\n  \"description\": \"Cebolas fritas saborosas e crocantes\",\n  \"price\": 10.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Coca-Cola",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Coca-Cola\",\n  \"categoria\": \"bebida\",\n  \"description\": \"Coca-Cola gelada e refrescante. 500ml\",\n  \"price\": 10.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Guaraná",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Guaraná\",\n  \"categoria\": \"bebida\",\n  \"description\": \"Guaraná gelado e refrescante. 500ml\",\n  \"price\": 10.90\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Sorvete",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Sorvete\",\n  \"categoria\": \"Sobremesa\",\n  \"description\": \"Sorvete de baunilha de casquinha\",\n  \"price\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Brigadeiro",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Brigadeiro\",\n  \"categoria\": \"Sobremesa\",\n  \"description\": \"Delicioso brigadeiro de chocolate\",\n  \"price\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/Produto",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"Produto"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "Recover a Produto by Produto Id",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{API_URL}}/Produto/1"
+						"url": {
+							"raw": "{{API_URL}}/Produto/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Produto",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b1f1036e-e2d9-4575-bcf4-4f32ce708191"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -231,14 +454,29 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Batata Frita\", // Must be a string\n  \"categoriaId\": 1, // Must be a number\n  \"description\": \"Batata deliciosamente frita\", // Must be a string\n  \"price\": 4.45 // Must be a number\n}",
+							"raw": "{\n  \"name\": \"Batata Frita\",\n  \"categoria\": \"acompanhamento\",\n  \"description\": \"Batata deliciosamente frita\", \n  \"price\": 4.45\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{API_URL}}/Produto/1"
+						"url": {
+							"raw": "{{API_URL}}/Produto/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Produto",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b1f1036e-e2d9-4575-bcf4-4f32ce708191"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -247,17 +485,32 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{API_URL}}/Produto/1"
+						"url": {
+							"raw": "{{API_URL}}/Produto/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Produto",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "bb570897-8407-4b69-8e8c-89fc3e92f148"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get all Produtos by Categoria ID",
+					"name": "Get all Produtos by Categoria",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Produto/?idCategoria=1",
+							"raw": "{{API_URL}}/Produto/?Categoria=bebida",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -267,8 +520,8 @@
 							],
 							"query": [
 								{
-									"key": "idCategoria",
-									"value": "1"
+									"key": "Categoria",
+									"value": "bebida"
 								}
 							]
 						}
@@ -285,16 +538,90 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{API_URL}}/Categoria"
+						"url": {
+							"raw": "{{API_URL}}/Categoria",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"Categoria"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "get-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/get-user/12345678900",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"get-user",
+								"12345678900"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Categoria by ID",
+					"name": "sign-up",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": "{{API_URL}}/Categoria/1"
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Cpf\": \"12345678900\",\r\n    \"Password\": \"9876543221\",\r\n    \"Name\": \"hellp from api gateway!\",\r\n    \"Email\": \"atcorrea17@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/sign-up",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Cpf\": \"12345678900\",\r\n    \"Password\": \"9876543221\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/sign-in",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"sign-in"
+							]
+						}
 					},
 					"response": []
 				}

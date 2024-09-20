@@ -50,7 +50,7 @@ namespace DotLanches.Api.Controllers
         [ProducesResponseType(typeof(PagamentoViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ProcessPagamento([Required][FromBody] ProcessPagamentoRequestDto pagamentoResponse)
+        public async Task<IActionResult> ProcessPagamento([Required][FromBody] PagamentoResponseDto pagamentoResponse)
         {
             var adapterPagamento = new AdapterPagamentoController(_pagamentoRepository, _pedidoRepository, _checkout);
             var payResponse = await adapterPagamento.ProcessPagamento(pagamentoResponse.IdPedido, pagamentoResponse.IsAccepted);
@@ -64,7 +64,7 @@ namespace DotLanches.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(Pagamento), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetStatusPagamento(int idPedido)
+        public async Task<IActionResult> GetStatusPagamento(Guid idPedido)
         {
             var adapterPagamento = new AdapterPagamentoController(_pagamentoRepository, _pedidoRepository, _checkout);
             return Ok(await adapterPagamento.GetByIdPedido(idPedido));

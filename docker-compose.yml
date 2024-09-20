@@ -1,26 +1,18 @@
 version: '3.9'
 
-volumes:
-  dotLanchesDb:
-    name: "dotLanchesDb"
-
 networks:
   dotLanchesNetwork:
     driver: bridge
 
 services:
   db:
-    image: postgres:16.3-alpine3.18
-    container_name: dotlanches_db
+    image: mongo
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: dotLanches
+      MONGO_INITDB_ROOT_USERNAME: sudowoodo
+      MONGO_INITDB_ROOT_PASSWORD: P455w0rd
     ports:
-      - "5432:5432"
-    volumes:
-      - dotLanchesDb:/var/lib/postgresql/data
+    - "27017:27017" 
     networks:
       - dotLanchesNetwork
 
@@ -36,6 +28,6 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=dotLanches;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ConnectionStrings__DefaultConnection=mongodb://sudowoodo:P455w0rd@db:27017/?appName=dotlanche
     networks:
       - dotLanchesNetwork

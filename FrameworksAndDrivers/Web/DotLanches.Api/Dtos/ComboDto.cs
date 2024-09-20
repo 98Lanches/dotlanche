@@ -3,9 +3,9 @@ namespace DotLanches.Api.Dtos
 {
     public class ComboDto
     {
-        public int? LancheId { get; set; }
-        public int? AcompanhamentoId { get; set; }
-        public int? BebidaId { get; set; }
-        public int? SobremesaId { get; set; }
+        public Guid? LancheId { get; set; }
+        public Guid? AcompanhamentoId { get; set; }
+        public Guid? BebidaId { get; set; }
+        public Guid? SobremesaId { get; set; }
     }
 }

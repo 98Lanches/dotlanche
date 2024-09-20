@@ -18,8 +18,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Core\DotLanches.Application\DotLanches.UseCases.csproj" />
+      <ProjectReference Include="..\..\..\DotLanches.Data\DotLanches.DataMongo.csproj" />
       <ProjectReference Include="..\..\..\InterfaceAdapters\Controllers\DotLanches.Controllers\DotLanches.Controllers.csproj" />
-      <ProjectReference Include="..\..\Database\DotLanches.Infra\DotLanches.Database.csproj" />
       <ProjectReference Include="..\..\ExternalInterfaces\DotLanches.Payment\DotLanches.Payment.csproj" />
     </ItemGroup>
 

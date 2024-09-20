@@ -1,9 +1,9 @@
 ﻿using DotLanches.Api.Filters;
-using DotLanches.Infra.Extensions;
 using System.Reflection;
 using DotLanches.Payment.FakeCheckout;
 using Microsoft.OpenApi.Models;
 using DotLanches.Domain.Interfaces.ExternalInterfaces;
+using DotLanches.DataMongo.Extensions;
 
 namespace DotLanches.Api.Extensions
 {
@@ -45,12 +45,7 @@ namespace DotLanches.Api.Extensions
 
         private static IServiceCollection ConfigureHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new Exception("No database connection string found!");
-
-            services.AddHealthChecks()
-                .AddNpgSql(connectionString);
-
+            services.AddHealthChecks();
             return services;
         }
     }

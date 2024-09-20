@@ -15,8 +15,6 @@ namespace DotLanches.Application.UseCases
                 combo.Acompanhamento = await produtoGateway.GetById(combo.Acompanhamento.Id);
                 combo.Bebida = await produtoGateway.GetById(combo.Bebida.Id);
                 combo.Sobremesa = await produtoGateway.GetById(combo.Sobremesa.Id);
-
-                combo.CalculatePrice();
             }
 
             pedido.CalculateTotalPrice();
@@ -31,17 +29,13 @@ namespace DotLanches.Application.UseCases
 
             foreach (var pedido in pedidos)
             {
-                foreach (var combo in pedido.Combos)
-                {
-                    combo.CalculatePrice();
-                }
                 pedido.CalculateTotalPrice();
             }
 
             return pedidos;
         }
 
-        public static async Task<Pedido> UpdateStatusOfSelectedPedido(int id, Status status, IPedidoGateway pedidoGateway)
+        public static async Task<Pedido> UpdateStatusOfSelectedPedido(Guid id, EStatus status, IPedidoGateway pedidoGateway)
         {
             var pedido = await pedidoGateway.GetById(id) ??
                 throw new Exception("Non existing pedido!");

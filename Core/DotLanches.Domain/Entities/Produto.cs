@@ -5,26 +5,27 @@ namespace DotLanches.Domain.Entities;
 
 public class Produto
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
-    public Categoria Categoria { get; set; }
+    public ECategoria Categoria { get; set; }
 
     private Produto() { }
 
-    public Produto(int id)
+    public Produto(Guid id)
     {
         Id = id;
     }
 
-    public Produto(int id,
+    public Produto(Guid? id,
                    string name,
                    string description,
                    decimal price,
-                   Categoria categoria)
+                   ECategoria categoria
+                  )
     {
-        Id = id;
+        Id = id ?? Guid.NewGuid();
         Name = name;
         Description = description;
         Price = price;
@@ -41,7 +42,7 @@ public class Produto
             throw new DomainValidationException(nameof(Description));
         if (Price <= 0)
             throw new DomainValidationException(nameof(Price));
-        if (Categoria is null)
+        if (!Enum.IsDefined(typeof(ECategoria), Categoria))
             throw new DomainValidationException(nameof(Categoria));
     }
 }

@@ -2,19 +2,15 @@ namespace DotLanches.Domain.Entities;
 
 public class Pagamento
 {
-    public int Id { get; private set; }
-
-    public int? IdPedido { get; set; }
+    public Guid Id { get; private set; }
 
     public bool? IsAccepted { get; set; }
     
     public DateTime? RegisteredAt { get; set; }
 
-    private Pagamento() {}
-
-    public Pagamento(int? idPedido)
+    public Pagamento()
     {
-        IdPedido = idPedido ?? throw new ArgumentNullException(nameof(idPedido));
+        Id = Guid.NewGuid();
     }
 
     public void ConfirmPayment()

@@ -5,14 +5,12 @@ namespace DotLanches.Api.Mappers
 {
     public static class ComboMapper
     {
-        public static Combo ToDomainModel(this ComboDto comboDto, int id = 0, int pedidoId = 0)
+        public static Combo ToDomainModel(this ComboDto comboDto)
         {
-            var domainModel = new Combo(id,
-                                        pedidoId,
-                                        new Produto(comboDto.LancheId ?? 0),
-                                        new Produto(comboDto.AcompanhamentoId ?? 0),
-                                        new Produto(comboDto.BebidaId ?? 0),
-                                        new Produto(comboDto.SobremesaId ?? 0));
+            var domainModel = new Combo(new Produto(comboDto.LancheId ?? Guid.Empty),
+                                        new Produto(comboDto.AcompanhamentoId ?? Guid.Empty),
+                                        new Produto(comboDto.BebidaId ?? Guid.Empty),
+                                        new Produto(comboDto.SobremesaId ?? Guid.Empty));
 
             return domainModel;
         }

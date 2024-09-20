@@ -5,27 +5,28 @@ namespace DotLanches.Domain.Entities;
 
 public class Pedido
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public string? ClienteCpf { get; set; }
-    public Status Status { get; set; }
+    public EStatus Status { get; set; }
     public decimal TotalPrice { get; set; }
     public IEnumerable<Combo> Combos { get; set; }
     public int QueueKey { get; set; }
     public DateTime AddedToQueueAt { get; set; }
+    public Pagamento Pagamento { get; set; }
 
     private Pedido() { }
 
-    public Pedido(int id,
-                  DateTime createdAt,
+    public Pedido(DateTime createdAt,
                   string? clienteCpf,
                   IEnumerable<Combo> combos)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         CreatedAt = createdAt;
         ClienteCpf = clienteCpf;
         Combos = combos;
-        Status = Status.Confirmado();
+        Status = EStatus.Confirmado;
+        Pagamento = new Pagamento();
 
         ValidateEntity();
     }
@@ -38,7 +39,7 @@ public class Pedido
 
     public void CalculateTotalPrice()
     {
-        TotalPrice = Combos.Sum(c => c.Price);
+        TotalPrice = Combos.Sum(c => c.CalculatePrice());
 
         if (TotalPrice <= 0)
             throw new DomainValidationException(nameof(TotalPrice));
@@ -46,14 +47,14 @@ public class Pedido
 
     public void ReceivePagamento(QueueKey queueKey)
     {
-        this.Status = Status.Recebido();
+        this.Status = EStatus.Recebido;
         this.QueueKey = queueKey.Value;
         this.AddedToQueueAt = queueKey.CreationDate;
     }
 
     public void Cancel()
     {
-        this.Status = Status.Cancelado();
+        this.Status = EStatus.Cancelado;
     }
 
 }
