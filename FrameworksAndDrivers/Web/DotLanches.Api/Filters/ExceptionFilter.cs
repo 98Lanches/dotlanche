@@ -13,8 +13,6 @@ namespace DotLanches.Api.Filters
             var status = exception switch
             {
                 EntityNotFoundException => StatusCodes.Status404NotFound,
-                ClienteNotFoundException => StatusCodes.Status404NotFound,
-                ClienteAlreadyExistsException => StatusCodes.Status409Conflict,
                 ConflictException => StatusCodes.Status409Conflict,
                 DomainValidationException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError

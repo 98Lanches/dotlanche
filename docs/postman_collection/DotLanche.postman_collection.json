@@ -7,117 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Cliente",
-			"item": [
-				{
-					"name": "Get  All Clientes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/Cliente",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Cliente"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Cliente",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"user example\", // Must be in string\n  \"cpf\": \"404.347.120-35\", // Must be in string and valid CPF\n  \"email\": \"user@example.com\" // Must be in string and valid e-mail\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_URL}}/Cliente",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Cliente"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Cliente by Id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"user example 2\", // Must be in string\n  \"cpf\": \"404.347.120-35\", // Must be in string and valid CPF\n  \"email\": \"user@example.com\" // Must be in string and valid e-mail\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_URL}}/Cliente/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Cliente",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Cliente by Id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/Cliente/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Cliente",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search Cliente by CPF",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/Cliente/404.347.120-35",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Cliente",
-								"404.347.120-35"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Pagamento",
 			"item": [
 				{
@@ -127,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idPedido\": \"59c89bf4-c97f-40a5-9f48-3ad8521cc54b\"\n}",
+							"raw": "{\n    \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -154,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idPedido\": \"59c89bf4-c97f-40a5-9f48-3ad8521cc54b\",\n  \"isAccepted\": true\n}",
+							"raw": "{\n  \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\",\n  \"isAccepted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"

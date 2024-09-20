@@ -22,7 +22,6 @@ namespace DotLanches.DataMongo.Extensions
             RegisterConventions();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
 
