@@ -21,7 +21,7 @@ namespace DotLanches.Gateways
 
         public async Task<IEnumerable<Produto>> GetByCategoria(ECategoria categoria) => await _produtoRepository.GetByCategoria(categoria);
 
-        public async Task<Produto> GetById(Guid idProduto) => await _produtoRepository.GetById(idProduto);
+        public async Task<Produto?> GetById(Guid idProduto) => await _produtoRepository.GetById(idProduto);
 
         public async Task<Produto?> GetByName(string name) => await _produtoRepository.GetByName(name);
     }

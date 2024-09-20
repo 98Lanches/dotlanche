@@ -54,7 +54,7 @@ namespace DotLanches.DataMongo.Repositories
             return await _produtosCollection.Find(filter).ToListAsync();
         }
 
-        public async Task<Produto> GetById(Guid idProduto)
+        public async Task<Produto?> GetById(Guid idProduto)
         {
             var filter = Builders<Produto>.Filter.Eq(p => p.Id, idProduto);
             return await _produtosCollection.Find(filter).FirstOrDefaultAsync();

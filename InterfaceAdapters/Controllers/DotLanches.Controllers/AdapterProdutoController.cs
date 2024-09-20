@@ -41,7 +41,7 @@ public class AdapterProdutoController
         return produtos;
     }
 
-    public async Task<Produto> GetById(Guid idProduto)
+    public async Task<Produto?> GetById(Guid idProduto)
     {
         var gateway = new ProdutoGateway(_produtoRepository);
         var produto = await ProdutoUseCases.ShowSelectedProduto(idProduto, gateway);

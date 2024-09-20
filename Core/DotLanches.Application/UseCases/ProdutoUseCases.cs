@@ -11,7 +11,7 @@ namespace DotLanches.Application.UseCases
             var alreadyExists = await gateway.GetByName(produto.Name) is not null;
             if (alreadyExists)
                 throw new ConflictException();
-        
+
             await gateway.Add(produto);
             return produto.Id;
         }
@@ -22,6 +22,6 @@ namespace DotLanches.Application.UseCases
 
         public static async Task<IEnumerable<Produto>> ShowAllProdutosForGivenCategory(ECategoria categoria, IProdutoGateway gateway) => await gateway.GetByCategoria(categoria);
 
-        public static async Task<Produto> ShowSelectedProduto(Guid idProduto, IProdutoGateway gateway) => await gateway.GetById(idProduto);
+        public static async Task<Produto?> ShowSelectedProduto(Guid idProduto, IProdutoGateway gateway) => await gateway.GetById(idProduto);
     }
 }
