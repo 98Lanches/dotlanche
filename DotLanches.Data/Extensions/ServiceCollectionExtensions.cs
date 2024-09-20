@@ -1,10 +1,12 @@
-﻿using DotLanches.DataMongo.Data;
+﻿using DotLanches.DataMongo.Repositories;
 using DotLanches.Domain.Interfaces.Repositories;
-using DotLanches.DataMongo.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using DotLanches.Domain.Entities;
 
 namespace DotLanches.DataMongo.Extensions
 {
@@ -17,8 +19,7 @@ namespace DotLanches.DataMongo.Extensions
             services.AddSingleton(provider => new MongoClient(configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton(provider => provider.GetRequiredService<MongoClient>().GetDatabase(DATABASE_NAME));
 
-            // Create a singleton instance of the IMongoCollection<Produto>
-            //services.AddSingleton<IMongoCollection<Produto>>(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<Produto>("ProdutoTeste"));
+            RegisterConventions();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
@@ -26,6 +27,17 @@ namespace DotLanches.DataMongo.Extensions
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
 
             return services;
+        }
+
+        private static void RegisterConventions()
+        {
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+
+            var pack = new ConventionPack
+            {
+                new EnumRepresentationConvention(BsonType.String),
+            };
+            ConventionRegistry.Register("DotlancheConventions", pack, t => true);
         }
     }
 }
