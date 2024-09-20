@@ -6,6 +6,9 @@ namespace DotLanches.Application.UseCases
     public static class ProdutoUseCases
     {
         public static async Task RegisterNewProduto(Produto produto, IProdutoGateway gateway) => await gateway.Add(produto);
+            var alreadyExists = await gateway.GetByName(produto.Name) is not null;
+            if (alreadyExists)
+                throw new ConflictException();
         
         public static async Task<Produto> EditExistingProduto(Produto produto, IProdutoGateway gateway) => await gateway.Edit(produto);
 
