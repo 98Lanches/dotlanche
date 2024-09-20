@@ -2,21 +2,19 @@
 
 ## Descrição do Projeto
 
-O DotLanche é uma aplicação para gerenciamento de clientes e pedidos em um sistema de lanchonete. A aplicação é construída usando .NET e utiliza um banco de dados PostgreSQL. O projeto inclui arquivos de configuração do Docker para facilitar o desenvolvimento e a implantação.
+O DotLanche é uma aplicação para gerenciamento de pedidos em um sistema de lanchonete. A aplicação é construída usando .NET e utiliza um banco de dados MongoDB. 
+O projeto inclui arquivos de configuração do Docker para facilitar o desenvolvimento e a implantação.
 
 ## Objetivos
-
-- Gerenciar clientes, produtos e pedidos.
 - Facilitar o controle de estoque.
 - Automatizar processos de venda e registro de clientes.
 - Fornecer uma interface de API para interagir com o sistema.
 
 ## Estrutura do Projeto
 
-- **DotLanches.Api**: Contém a API da aplicação.
-- **DotLanches.Application**: Contém as regras de negócio e serviços da aplicação.
-- **DotLanches.Domain**: Contém as entidades e exceções do domínio.
-- **DotLanches.Infra**: Contém a camada de infraestrutura, como repositórios e configuração do banco de dados.
+- **Core**: Contém entidades de negócio e use cases da aplicação. Aqui se encontram as regras de negócio do sistema.
+- **FrameworkdAndDrivers**: Camada que contém toda a comunicação externa da  aplicação. Aqui encontra-se a comunicação com banco  de  dados, a interface web  api, e comunicação com serviços externos.
+- **InterfaceAdapters**: Camada que realiza a comunicação entre as camadas externas da aplicação com a lógica de negócio (core).
 
 ## Arquitetura
 ![arquitetura_dotlanche](docs/imgs/Arquitetura_Dotlanche.jpg)
@@ -33,11 +31,13 @@ O DotLanche é uma aplicação para gerenciamento de clientes e pedidos em um si
    ```sh
    git clone https://github.com/lanchesjaamp/dotlanche.git
    cd dotlanche
+1. ```
 
 2. Execute a Aplicação com Docker Compose
    ```sh
    docker-compose build
    docker-compose up
+   ```
 
 3. Abra no navegador a API pela rota http://localhost:8080/swagger/index.html
 
@@ -48,24 +48,21 @@ O DotLanche é uma aplicação para gerenciamento de clientes e pedidos em um si
 1. Executar uma requisição `POST` para o endpoint `{{API_URL}}/Produto` para criar 1 produto
    - Para verificar as categorias de produto pode executar uma requisição `GET` para o endpoint `{{API_URL}}/Categoria`
 
-### 2. Cadastro de cliente
-1. Executar uma requisição `POST` para o endpoint `{{API_URL}}/Cliente` para criar 1 cliente
-
-### 3. Cadastro de pedido
+### 2. Cadastro de pedido
 1. Executar uma requisição `GET` para o endpoint `{{API_URL}}/Produto/?idCategoria=<idCategoria>` para consultar os produtos de uma categoria
 2. Executar uma requisição `POST` para o endpoint `{{API_URL}}/Pedido` para criar 1 pedido
 
-### 4. Passos do pagamento
+### 3. Passos do pagamento
 1. Executar uma requisição `POST` para o endpoint `{{API_URL}}/Pagamento/QrCode` para criar 1 pagamento via QR Code
    - Necessário informar o id do pedido do item anterior
 2. Executar uma requisição `POST` para o endpoint `{{API_URL}}/Pagamento/Confirmar` para confirmar o pagamento
    - Necessário informar o id do pedido do item anterior
    - Necessário adicionar a flag como `isAccepted` como `true`
-3. Executar uma requisição `GET` para o endpoint `{{API_URL}}/Pagamento?idPedido={{idPedido}}` para consultar o status do pedido
+3. Executar uma requisição `GET` para o endpoint `{{API_URL}}/Pagamento?idPedido={{idPedido}}` para consultar o status do pagamento
 
-### 5. Verificar o andamento do pedido
+### 4. Verificar o andamento do pedido
 1. Executar uma requisição `GET` para o endpoint `{{API_URL}}/Pedido/queue` para consultar a fila de pedido
-   - A fila irá aparecer apenas pedidos com os status `PRONTO`, `Em preparação`, `Recebido`
+   - A fila irá aparecer apenas pedidos com os status `Pronto`, `Em preparação`, `Recebido`
    - Ordenação da fila é mais antigos para os mais novos _(FIFO)_
 2. Executar uma requisição `PUT` para o endpoint `{{API_URL}}/Pedido/<IdPedido>?StatusId=<StatusId>` para atualizar o status do pedido
    - Os ids do status são
