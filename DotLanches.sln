@@ -42,12 +42,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotLanches.Presenters", "In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotLanches.Controllers", "InterfaceAdapters\Controllers\DotLanches.Controllers\DotLanches.Controllers.csproj", "{6A849DA5-C0CE-4948-9D17-EAA270434DC8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotLanches.DataMongo", "DotLanches.Data\DotLanches.DataMongo.csproj", "{11380AA8-9FF6-43C8-85B3-2416529D38FE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3EDD3965-A83F-44A2-8ED2-EAB3395711BC}"
 	ProjectSection(SolutionItems) = preProject
 		docs\imgs\Arquitetura_Dotlanche.jpg = docs\imgs\Arquitetura_Dotlanche.jpg
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotLanches.DataMongo", "FrameworksAndDrivers\Database\DotLanches.Data\DotLanches.DataMongo.csproj", "{52DC657C-C008-45F1-9211-67ED221C9EB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +83,10 @@ Global
 		{6A849DA5-C0CE-4948-9D17-EAA270434DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A849DA5-C0CE-4948-9D17-EAA270434DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A849DA5-C0CE-4948-9D17-EAA270434DC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11380AA8-9FF6-43C8-85B3-2416529D38FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11380AA8-9FF6-43C8-85B3-2416529D38FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11380AA8-9FF6-43C8-85B3-2416529D38FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11380AA8-9FF6-43C8-85B3-2416529D38FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DC657C-C008-45F1-9211-67ED221C9EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DC657C-C008-45F1-9211-67ED221C9EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DC657C-C008-45F1-9211-67ED221C9EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DC657C-C008-45F1-9211-67ED221C9EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,8 +105,8 @@ Global
 		{699F1C2F-C43A-4154-8A88-DF3ADEF374D7} = {D7755877-F1CD-4030-A581-64E577FCC34A}
 		{70AA619A-2CBF-48A9-8C74-6AE103344F4C} = {964C29AF-77C8-44C0-A05F-276D1F50BD79}
 		{6A849DA5-C0CE-4948-9D17-EAA270434DC8} = {A8B48CCD-81C4-4101-80D7-81201AA4D46F}
-		{11380AA8-9FF6-43C8-85B3-2416529D38FE} = {F03C84BB-7D03-4587-860B-3A3DE5B92133}
 		{3EDD3965-A83F-44A2-8ED2-EAB3395711BC} = {7EA2CD18-2922-4782-91C1-B885526A02AF}
+		{52DC657C-C008-45F1-9211-67ED221C9EB3} = {F03C84BB-7D03-4587-860B-3A3DE5B92133}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D9EB52E-6F03-419F-910A-1788EF784D74}
