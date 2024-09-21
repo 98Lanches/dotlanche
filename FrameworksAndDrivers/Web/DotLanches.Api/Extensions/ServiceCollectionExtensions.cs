@@ -1,9 +1,9 @@
 ﻿using DotLanches.Api.Filters;
-using System.Reflection;
+using DotLanches.DataMongo.Extensions;
+using DotLanches.Domain.Interfaces.ExternalInterfaces;
 using DotLanches.Payment.FakeCheckout;
 using Microsoft.OpenApi.Models;
-using DotLanches.Domain.Interfaces.ExternalInterfaces;
-using DotLanches.DataMongo.Extensions;
+using System.Reflection;
 
 namespace DotLanches.Api.Extensions
 {
@@ -45,7 +45,11 @@ namespace DotLanches.Api.Extensions
 
         private static IServiceCollection ConfigureHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddMongoDb(configuration.GetConnectionString("DefaultConnection") 
+                                ?? throw new Exception("No connection string for mongodb provided!"), 
+                            timeout: TimeSpan.FromSeconds(60));
+
             return services;
         }
     }
