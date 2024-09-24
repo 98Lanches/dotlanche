@@ -9,10 +9,15 @@ builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Services.AddHttpLogging(logging =>
+{
+});
+
 var app = builder.Build();
 
 app.MapHealthChecks("/health");
 
+app.UseHttpLogging();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
