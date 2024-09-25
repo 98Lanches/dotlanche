@@ -1,0 +1,102 @@
+name: CD
+on:
+  push:
+    branches: 
+      - main
+    tags:
+      - v*
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_REGION: us-east-1
+  AWS_CLUSTER_NAME: ${{ secrets.AWS_CLUSTER_NAME }}
+  MONGODB_ATLAS_CONNECTION_STRING: ${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}
+
+jobs:
+  publish_image_dockerhub:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PUBLISH_TOKEN }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: angcostaneto/dotlanches
+
+    - name: Build and push Docker image
+      id: push
+      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      with:
+        context: .
+        file: ./FrameworksAndDrivers/Web/DotLanches.Api/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        
+  deploy_to_aws:
+    name: Deploy to AWS
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
+    needs: publish_image_dockerhub
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: angcostaneto/dotlanches
+
+    - name: Replace connection string in dotlanche-secrets.yaml
+      run: |
+          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ env.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' ./.kubernetes/dotlanche-secrets.yaml
+
+    - name: Show dotlanche-secrets.yaml
+      run: cat ./.kubernetes/dotlanche-secrets.yaml
+
+    - name: Replace image in dotlanche-deployment.yaml
+      run: |
+          sed -i 's|{{ DOCKER_IMAGE }}|'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-api-deployment.yaml
+    
+    - name: Show dotlanche-deployment.yaml
+      run: cat ./.kubernetes/dotlanche-api-deployment.yaml
+
+    - name: Deploy to AWS EKS
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Update kubeconfig for EKS
+      run: |
+          aws eks update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+
+    - name: Generate kubernetes manifests
+      run: |
+        kubectl apply -f ./.kubernetes/dotlanche-secrets.yaml
+        kubectl apply -f ./.kubernetes/dotlanche-api-deployment.yaml
+        kubectl apply -f ./.kubernetes/dotlanche-api-svc.yaml
+        kubectl apply -f ./.kubernetes/hpa.yaml
