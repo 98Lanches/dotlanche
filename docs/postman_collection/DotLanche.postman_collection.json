@@ -12,11 +12,21 @@
 				{
 					"name": "Pagamento by QR_CODE",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\"\n}",
+							"raw": "{\n    \"idPedido\": \"789589f3-0599-4c38-941f-4a61a6e6fc39\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,13 +34,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/Pagamento/QrCode",
+							"raw": "{{API_URL}}/pagamento/qrcode",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pagamento",
-								"QrCode"
+								"pagamento",
+								"qrcode"
 							]
 						}
 					},
@@ -39,11 +49,21 @@
 				{
 					"name": "Confirm Pagamento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idPedido\": \"3bc1c4c8-7da3-468b-9e25-7fe4b9841da3\",\n  \"isAccepted\": true\n}",
+							"raw": "{\n  \"idPedido\": \"789589f3-0599-4c38-941f-4a61a6e6fc39\",\n  \"isAccepted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,13 +71,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/Pagamento/Confirmar",
+							"raw": "{{API_URL}}/pagamento/confirmar",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pagamento",
-								"Confirmar"
+								"pagamento",
+								"confirmar"
 							]
 						}
 					},
@@ -66,20 +86,30 @@
 				{
 					"name": "Get Status Pagamento By Pedido Id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Pagamento?idPedido=1",
+							"raw": "{{API_URL}}/pagamento?idpedido=789589f3-0599-4c38-941f-4a61a6e6fc39",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pagamento"
+								"pagamento"
 							],
 							"query": [
 								{
-									"key": "idPedido",
-									"value": "1"
+									"key": "idpedido",
+									"value": "789589f3-0599-4c38-941f-4a61a6e6fc39"
 								}
 							]
 						}
@@ -92,13 +122,23 @@
 			"name": "Pedido",
 			"item": [
 				{
-					"name": "Create a Pedido",
+					"name": "Create a Pedido (identificado)",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"clienteCpf\": {\n    \"number\": \"404.347.120-35\"\n  },\n  \"combos\": [\n    {\n      \"lancheId\": \"d69e452b-378b-4402-8aed-d76e75fe2302\",\n      \"bebidaId\": \"0dd22751-2916-45ca-959d-a2273f2efbf0\"\n    }\n  ]\n}",
+							"raw": "{\n  \"clienteCpf\": \"12345678900\",\n  \"combos\": [\n    {\n        \"lancheId\": \"f8865eda-9486-4e84-ac83-5529271c6ad9\",\n        \"acompanhamentoId\": \"27c08b90-bad5-4cea-91ef-cdf60208424d\",\n        \"bebidaId\": \"d0f21a7d-27e3-41d8-a884-ba2372d65b45\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,12 +146,48 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/Pedido",
+							"raw": "{{API_URL}}/pedido",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pedido"
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Pedido (anônimo)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"combos\": [\n    {\n        \"lancheId\": \"f8865eda-9486-4e84-ac83-5529271c6ad9\",\n        \"acompanhamentoId\": \"27c08b90-bad5-4cea-91ef-cdf60208424d\",\n        \"bebidaId\": \"d0f21a7d-27e3-41d8-a884-ba2372d65b45\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/pedido",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"pedido"
 							]
 						}
 					},
@@ -120,15 +196,25 @@
 				{
 					"name": "Get Pedidos Queue",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Pedido/queue",
+							"raw": "{{API_URL}}/pedido/queue",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pedido",
+								"pedido",
 								"queue"
 							]
 						}
@@ -138,15 +224,25 @@
 				{
 					"name": "Update Pedido Status",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Pedido/1?StatusId=2",
+							"raw": "{{API_URL}}/pedido/1?StatusId=2",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Pedido",
+								"pedido",
 								"1"
 							],
 							"query": [
@@ -167,6 +263,16 @@
 				{
 					"name": "Create Produto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -179,12 +285,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/Produto",
+							"raw": "{{API_URL}}/produto",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Produto"
+								"produto"
 							]
 						}
 					},
@@ -204,12 +310,18 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "https://ypbsqky6kl.execute-api.us-east-1.amazonaws.com/v1/produto",
+									"protocol": "https",
 									"host": [
-										"{{API_URL}}"
+										"ypbsqky6kl",
+										"execute-api",
+										"us-east-1",
+										"amazonaws",
+										"com"
 									],
 									"path": [
-										"Produto"
+										"v1",
+										"produto"
 									]
 								}
 							},
@@ -233,12 +345,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -262,12 +374,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -291,12 +403,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -320,12 +432,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -349,12 +461,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -378,12 +490,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -407,12 +519,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/Produto",
+									"raw": "{{API_URL}}/produto",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
-										"Produto"
+										"produto"
 									]
 								}
 							},
@@ -426,21 +538,31 @@
 				{
 					"name": "Recover a Produto by Produto Id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Produto/:id",
+							"raw": "{{API_URL}}/produto/:id",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Produto",
+								"produto",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "b1f1036e-e2d9-4575-bcf4-4f32ce708191"
+									"value": "b61b72b8-75cc-4e75-9f62-b5ad0846f076"
 								}
 							]
 						}
@@ -450,6 +572,16 @@
 				{
 					"name": "Update Produto By Produto ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -462,12 +594,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/Produto/:id",
+							"raw": "{{API_URL}}/produto/:id",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Produto",
+								"produto",
 								":id"
 							],
 							"variable": [
@@ -483,15 +615,25 @@
 				{
 					"name": "Delete Produto by Produto ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_GERENCIAL}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Produto/:id",
+							"raw": "{{API_URL}}/produto/:id",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Produto",
+								"produto",
 								":id"
 							],
 							"variable": [
@@ -507,44 +649,31 @@
 				{
 					"name": "Get all Produtos by Categoria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN_USUARIO}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/Produto/?Categoria=bebida",
+							"raw": "{{API_URL}}/produto?Categoria=lanche",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"Produto",
-								""
+								"produto"
 							],
 							"query": [
 								{
 									"key": "Categoria",
-									"value": "bebida"
+									"value": "lanche"
 								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Categoria",
-			"item": [
-				{
-					"name": "Get All Categorias",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/Categoria",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"Categoria"
 							]
 						}
 					},
@@ -558,6 +687,9 @@
 				{
 					"name": "get-user",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -576,11 +708,14 @@
 				{
 					"name": "sign-up",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Cpf\": \"12345678900\",\r\n    \"Password\": \"9876543221\",\r\n    \"Name\": \"hellp from api gateway!\",\r\n    \"Email\": \"atcorrea17@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"Cpf\": \"12345678900\",\r\n    \"Password\": \"9876543221\",\r\n    \"Name\": \"hello from api gateway!\",\r\n    \"Email\": \"atcorrea17@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -600,8 +735,40 @@
 					"response": []
 				},
 				{
+					"name": "sign-in anônimo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"anonymous\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/sign-in",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "sign-in",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -625,7 +792,64 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJraWQiOiIxUXlySVNLS1JqcWltU0w3RTJGbFFwU0ViazA1UVwvNE81Q3FVQUpCVmZkZz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIzNGQ4ODQ1OC1iMGIxLTcwYTQtZmQxYy00YTQ2N2E3MTMzODQiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9RTHNqM2hZVTEiLCJjbGllbnRfaWQiOiIzaTNuYWRibGt1ZTFmYmRmaXBuZjY1OHZ2ZyIsIm9yaWdpbl9qdGkiOiI4Y2FmNDEzMi1jMmM2LTQ5ZDMtODNlMC1lMTAwNjBkMjAxMWMiLCJldmVudF9pZCI6IjMzZDgxYWZhLWYxMDgtNDY5Ny05MmM3LWFlZmI5NWMxMTVmYyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjczMDY1MzgsImV4cCI6MTcyNzMxMDEzOCwiaWF0IjoxNzI3MzA2NTM4LCJqdGkiOiIxY2JhMDhjOS02N2MxLTRjMTUtYWY5ZS1kMjAzZTllNTFjZTkiLCJ1c2VybmFtZSI6ImFub255bW91cyJ9.Q2MrMFoKHMrm1MNFZAz4W0ni3Sa6-YGNXdjAHOFi0eYR2lsDzl8z8Zyc99KKNjt6H7gVePvOmUVt5jWJ6J5ql4GkJGKLVZNQoRhJ9dRzr0KG0fBHlut6PzDowdj8i7WfzVk55V5xdQZSw_ulf1bPURMljI2JG3POEJCcOwZPOjpKPjIgEAZnG-k3reG9uc366XXsvhkWTFM676oX9C-B9BqyWr9RRpbJTMSTgTbE5GdiSATgOQHCoc0u7Q3uNDLcaeD2QGgN-0PAkySZdBSYdA1vVdHl6xyQu1QlNVHPDhhK_nq-i5cTb_Zk6Qz2iMcnqr1BIN088RdtEm24igctjw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
