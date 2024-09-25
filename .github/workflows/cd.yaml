@@ -78,10 +78,10 @@ jobs:
 
     - name: Replace image in dotlanche-deployment.yaml
       run: |
-          sed -i 's|{{ DOCKER_IMAGE }}|angcostaneto/dotlanches:'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-deployment.yaml
+          sed -i 's|{{ DOCKER_IMAGE }}|angcostaneto/dotlanches:'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-api-deployment.yaml
     
     - name: Show dotlanche-deployment.yaml
-      run: cat ./.kubernetes/dotlanche-deployment.yaml
+      run: cat ./.kubernetes/dotlanche-api-deployment.yaml
 
    #- name: Deploy to AWS EKS
     #  uses: aws-actions/configure-aws-credentials@v1
