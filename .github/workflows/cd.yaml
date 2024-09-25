@@ -61,11 +61,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Login to AWS ECR
-      uses: aws-actions/amazon-ecr-login@v1
-      with:
-        region: ${{ env.AWS_REGION }}
-
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
