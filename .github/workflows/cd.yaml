@@ -71,14 +71,14 @@ jobs:
 
     - name: Replace connection string in dotlanche-secrets.yaml
       run: |
-          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ env.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' ./.kubernetes/dotlanche-secrets.yaml
+          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' ./.kubernetes/dotlanche-secrets.yaml
 
     - name: Show dotlanche-secrets.yaml
       run: cat ./.kubernetes/dotlanche-secrets.yaml
 
     - name: Replace image in dotlanche-deployment.yaml
       run: |
-          sed -i 's|{{ DOCKER_IMAGE }}|angcostaneto/dotlanches:'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-api-deployment.yaml
+          sed -i 's|{{ DOCKER_IMAGE }}|'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-api-deployment.yaml
     
     - name: Show dotlanche-deployment.yaml
       run: cat ./.kubernetes/dotlanche-api-deployment.yaml
