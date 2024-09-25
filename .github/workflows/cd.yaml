@@ -1,11 +1,10 @@
 name: CD
 on:
-  #push:
-    #branches: 
-    #  - main
-    #tags:
-    #  - v*
-  pull_request:
+  push:
+    branches: 
+      - main
+    tags:
+      - v*
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
