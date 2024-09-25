@@ -11,8 +11,9 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-  MONGODB_ATLAS_CONNECTION_STRING: ${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}
   AWS_REGION: us-east-1
+  AWS_CLUSTER_NAME: ${{ secrets.AWS_CLUSTER_NAME }}
+  MONGODB_ATLAS_CONNECTION_STRING: ${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}
 
 jobs:
   publish_image_dockerhub:
@@ -57,6 +58,7 @@ jobs:
       contents: read
       attestations: write
       id-token: write
+    needs: publish_image_dockerhub
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -69,14 +71,32 @@ jobs:
 
     - name: Replace connection string in dotlanche-secrets.yaml
       run: |
-          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' dotlanche-secrets.yaml
-      
+          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ env.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' ./.kubernetes/dotlanche-secrets.yaml
+
     - name: Show dotlanche-secrets.yaml
       run: cat dotlanche-secrets.yaml
-    
-    - name: Generate kubernetes manifests
+
+    - name: Replace image in dotlanche-deployment.yaml
       run: |
-        kubectl apply -f .kubernetes/dotlanche-secrets.yaml
-        kubectl apply -f .kubernetes/dotlanche-deployment.yaml
-        kubectl apply -f .kubernetes/dotlanche-service.yaml
-        kubectl apply -f .kubernetes/hpa.yaml
+          sed -i 's|{{ DOCKER_IMAGE }}|angcostaneto/dotlanches:'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-deployment.yaml
+    
+    - name: Show dotlanche-deployment.yaml
+      run: cat dotlanche-deployment.yaml
+
+   #- name: Deploy to AWS EKS
+    #  uses: aws-actions/configure-aws-credentials@v1
+     # with:
+    #    aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+    #    aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+    #    aws-region: ${{ env.AWS_REGION }}
+
+    #- name: Update kubeconfig for EKS
+    #  run: |
+    #      aws eks update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+
+    #- name: Generate kubernetes manifests
+    #  run: |
+    #    kubectl apply -f .kubernetes/dotlanche-secrets.yaml
+    #    kubectl apply -f .kubernetes/dotlanche-deployment.yaml
+    #    kubectl apply -f .kubernetes/dotlanche-service.yaml
+    #    kubectl apply -f .kubernetes/hpa.yaml
