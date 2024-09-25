@@ -97,7 +97,7 @@ jobs:
 
     - name: Generate kubernetes manifests
       run: |
-        kubectl apply -f .kubernetes/dotlanche-secrets.yaml
-        kubectl apply -f .kubernetes/dotlanche-deployment.yaml
-        kubectl apply -f .kubernetes/dotlanche-service.yaml
-        kubectl apply -f .kubernetes/hpa.yaml
+        kubectl apply -f ./.kubernetes/dotlanche-secrets.yaml
+        kubectl apply -f ./.kubernetes/dotlanche-deployment.yaml
+        kubectl apply -f ./.kubernetes/dotlanche-service.yaml
+        kubectl apply -f ./.kubernetes/hpa.yaml
