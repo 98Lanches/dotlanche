@@ -78,3 +78,4 @@ O projeto inclui arquivos de configuração do Docker para facilitar o desenvolv
 
 ## Video de explicação do projeto
 [![video do projeto](docs/imgs/video_thumbnail.png)](https://youtu.be/PfyiMBKDJ1Y)
+	
