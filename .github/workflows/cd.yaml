@@ -70,12 +70,12 @@ jobs:
       with:
         images: angcostaneto/dotlanches
 
-    - name: Replace connection string in dotlanche-secrets.yaml
-      uses: jacobtomlinson/gha-find-replace@v2
-      with:
-        find: '{{ MONGO_CONNECTION_STRING }}'
-        replace: ${{ env.MONGODB_ATLAS_CONNECTION_STRING }}
-        include: ./.kubernetes/dotlanche-secrets.yaml
+    - name: Set up MongoDB connection string
+      run: echo "MONGODB_CONNECTION_STRING=${{ env.MONGODB_ATLAS_CONNECTION_STRING }}" >> $GITHUB_ENV
+
+    - name: Update secrets file
+      run: |
+        sed -i "s|{{ MONGO_CONNECTION_STRING }}|$MONGODB_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
 
     - name: Show dotlanche-secrets.yaml
       run: cat ./.kubernetes/dotlanche-secrets.yaml
