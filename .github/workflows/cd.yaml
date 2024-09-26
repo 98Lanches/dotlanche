@@ -44,7 +44,8 @@ jobs:
 
     - name: Update secrets file
       run: |
-        awk '{gsub("{{ MONGO_CONNECTION_STRING }}", "'"${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}"'"); print}' ./.kubernetes/dotlanche-secrets.yaml > temp.yaml && mv temp.yaml ./.kubernetes/dotlanche-secrets.yaml
+        ESCAPED_CONNECTION_STRING=$(printf '%s\n' "${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}" | sed 's/[.*+?^${}()|[\]\\&]/\\&/g')
+        awk '{gsub("{{ MONGO_CONNECTION_STRING }}", "'"${ESCAPED_CONNECTION_STRING}"'"); print}' ./.kubernetes/dotlanche-secrets.yaml > temp.yaml && mv temp.yaml ./.kubernetes/dotlanche-secrets.yaml
 
 
     - name: Show dotlanche-secrets.yaml
