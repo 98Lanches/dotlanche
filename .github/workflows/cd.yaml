@@ -54,7 +54,7 @@ jobs:
         ESCAPED_CONNECTION_STRING=$(escape "$MONGODB_CONNECTION_STRING")
 
         # Usar sed para substituir 'MONGO_CONNECTION_STRING' pelo valor escapado
-        sed -i "s|MONGO_CONNECTION_STRING|$ESCAPED_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
+        sed -i "s|{{ MONGO_CONNECTION_STRING }}|$ESCAPED_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
 
 
     - name: Show dotlanche-secrets.yaml
