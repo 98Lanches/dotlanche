@@ -44,8 +44,17 @@ jobs:
 
     - name: Update secrets file
       run: |
+        # Função para escapar caracteres especiais
+        escape() {
+          echo "$1" | sed 's/[\/&]/\\&/g'
+        }
+
+        # Escapar a string de conexão
         MONGODB_CONNECTION_STRING="${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}"
-        sed -i "s|MONGO_CONNECTION_STRING|$MONGODB_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
+        ESCAPED_CONNECTION_STRING=$(escape "$MONGODB_CONNECTION_STRING")
+
+        # Usar sed para substituir 'MONGO_CONNECTION_STRING' pelo valor escapado
+        sed -i "s|MONGO_CONNECTION_STRING|$ESCAPED_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
 
 
     - name: Show dotlanche-secrets.yaml
