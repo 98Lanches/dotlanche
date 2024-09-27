@@ -48,7 +48,7 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        
+
   deploy_to_aws:
     name: Deploy to AWS
     runs-on: ubuntu-latest
@@ -68,19 +68,24 @@ jobs:
       with:
         images: angcostaneto/dotlanches
 
-    - name: Replace connection string in dotlanche-secrets.yaml
-      run: |
-          sed -i 's|{{ MONGO_CONNECTION_STRING }}|'"${{ env.MONGODB_ATLAS_CONNECTION_STRING }}"'|g' ./.kubernetes/dotlanche-secrets.yaml
+    - name: Set up MongoDB connection string
+      run: echo "MONGODB_CONNECTION_STRING=${{ env.MONGODB_ATLAS_CONNECTION_STRING }}" >> $GITHUB_ENV
 
-    - name: Show dotlanche-secrets.yaml
-      run: cat ./.kubernetes/dotlanche-secrets.yaml
+    - name: Update secrets file
+      run: |
+        escape() {
+          echo "$1" | sed 's/[\/&]/\\&/g'
+        }
+
+        # Escapar a string de conexão
+        MONGODB_CONNECTION_STRING="${{ secrets.MONGODB_ATLAS_CONNECTION_STRING }}"
+        ESCAPED_CONNECTION_STRING=$(escape "$MONGODB_CONNECTION_STRING")
+
+        sed -i "s|{{ MONGO_CONNECTION_STRING }}|$ESCAPED_CONNECTION_STRING|g" ./.kubernetes/dotlanche-secrets.yaml
 
     - name: Replace image in dotlanche-deployment.yaml
       run: |
           sed -i 's|{{ DOCKER_IMAGE }}|'"${{ steps.meta.outputs.tags }}"'|g' ./.kubernetes/dotlanche-api-deployment.yaml
-    
-    - name: Show dotlanche-deployment.yaml
-      run: cat ./.kubernetes/dotlanche-api-deployment.yaml
 
     - name: Deploy to AWS EKS
       uses: aws-actions/configure-aws-credentials@v1
