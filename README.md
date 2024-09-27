@@ -1,4 +1,4 @@
-# DotLanche :hamburger:
+# DotLanche :hamburger::hamburger:
 
 ## Descrição do Projeto
 
