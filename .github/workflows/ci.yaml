@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    name: "Build and Test Functions"
+    name: "Build and Test Application"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
